@@ -5,11 +5,8 @@ import (
 	"log"
 
 	"github.com/go-ldap/ldap/v3"
+	"github.com/saikrir/auth-svc/models"
 )
-
-type Credential struct {
-	AccountName, AccountPassword string
-}
 
 type LdapAuth struct {
 	Host, SearchBaseDN string
@@ -36,7 +33,7 @@ func (l *LdapAuth) openConnection() (*ldap.Conn, error) {
 	return conn, nil
 }
 
-func (l *LdapAuth) Authenticate(userCreds Credential) error {
+func (l *LdapAuth) Authenticate(userCreds models.Credential) error {
 	var (
 		conn          *ldap.Conn
 		err           error

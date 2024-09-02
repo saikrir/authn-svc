@@ -1,5 +1,5 @@
-GOOS = darwin
-GOARCH = arm64
+GOOS = linux
+GOARCH = amd64
 PROJECT_NAME = authn-svc
 MAIN_FILE = cmd/server/main.go
 BUILD_PATH = build

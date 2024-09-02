@@ -1,0 +1,65 @@
+{
+  "info": {
+    "name": "authz",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "bruno",
+      "event": []
+    },
+    {
+      "name": "AuthRequst",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:9999/v1/auth/authentications",
+          "host": [
+            "localhost"
+          ],
+          "path": [],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accountName\":\"appuser\",\n  \"accountPassword\":\"tempid1\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "ValidateRequest",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:9999/v1/auth/tokens",
+          "host": [
+            "localhost"
+          ],
+          "path": [],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUzMjk5ODEsInN1YmplY3QiOiJhcHB1c2VyIn0.-tL1pCIOH4saXFG3o5dJEkRD3VOFNOastKC1kBJHtyY\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "variable": []
+}

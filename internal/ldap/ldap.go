@@ -5,7 +5,6 @@ import (
 	"log"
 
 	"github.com/go-ldap/ldap/v3"
-	"github.com/saikrir/auth-svc/models"
 )
 
 type LdapAuth struct {
@@ -33,7 +32,7 @@ func (l *LdapAuth) openConnection() (*ldap.Conn, error) {
 	return conn, nil
 }
 
-func (l *LdapAuth) Authenticate(userCreds models.Credential) error {
+func (l *LdapAuth) Authenticate(serviceAccount, servicePassword string) error {
 	var (
 		conn          *ldap.Conn
 		err           error
@@ -45,14 +44,14 @@ func (l *LdapAuth) Authenticate(userCreds models.Credential) error {
 	}
 	defer conn.Close()
 
-	userBindDN := fmt.Sprintf("uid=%s,%s", ldap.EscapeFilter(userCreds.AccountName), l.SearchBaseDN)
+	userBindDN := fmt.Sprintf("uid=%s,%s", ldap.EscapeFilter(serviceAccount), l.SearchBaseDN)
 
-	if err = conn.Bind(userBindDN, userCreds.AccountPassword); err != nil {
+	if err = conn.Bind(userBindDN, servicePassword); err != nil {
 		log.Println("authentication failed ", err)
 		return err
 	}
 
-	searchFilter := fmt.Sprintf("(uid=%s)", ldap.EscapeFilter(userCreds.AccountName))
+	searchFilter := fmt.Sprintf("(uid=%s)", ldap.EscapeFilter(serviceAccount))
 	ldapQuery := ldap.NewSearchRequest(l.SearchBaseDN, ldap.ScopeSingleLevel, ldap.NeverDerefAliases, 0, 0, false, searchFilter, []string{}, []ldap.Control{})
 
 	if searchResults, err = conn.Search(ldapQuery); err != nil {
@@ -61,7 +60,7 @@ func (l *LdapAuth) Authenticate(userCreds models.Credential) error {
 	}
 
 	if len(searchResults.Entries) == 0 {
-		return fmt.Errorf("failed to find any matches for %s", userCreds.AccountName)
+		return fmt.Errorf("failed to find any matches for %s", serviceAccount)
 	}
 
 	log.Printf("%s was successfully authenticated \n", searchResults.Entries[0].GetAttributeValue("cn"))

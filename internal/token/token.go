@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt"
-	_ "github.com/golang-jwt/jwt"
 )
 
 type Token = string

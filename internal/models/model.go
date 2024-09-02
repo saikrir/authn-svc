@@ -1,8 +1,8 @@
 package models
 
 type Credential struct {
-	AccountName     string `json:"accountName"`
-	AccountPassword string `json:"accountPassword"`
+	AccountName     string `json:"accountName" validate:"required"`
+	AccountPassword string `json:"accountPassword" validate:"required"`
 }
 
 type AuthenticationRequest struct {
@@ -15,5 +15,5 @@ type AuthenticationResponse struct {
 }
 
 type AuthorizationRequest struct {
-	Token string `json:"token"`
+	Token string `json:"token" validate:"required"`
 }

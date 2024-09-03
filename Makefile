@@ -1,5 +1,6 @@
 GOOS = linux
-GOARCH = amd64
+GOARCH = arm
+ARM_VERSION=7
 PROJECT_NAME = authn-svc
 MAIN_FILE = cmd/server/main.go
 BUILD_PATH = build
@@ -13,7 +14,7 @@ init-build-dirs:
 
 build-api: init-build-dirs
 	$(info Will build API for $(GOOS) and $(GOARCH))
-	GOOS=$(GOOS) GOARCH=$(GOARCH) go build -o $(BUILD_PATH)/$(PROJECT_NAME) $(MAIN_FILE)
+	GOOS=$(GOOS) GOARCH=$(GOARCH) GOARM=$(ARM_VERSION) go build -o $(BUILD_PATH)/$(PROJECT_NAME) $(MAIN_FILE)
 	@echo "API build completed"
 
 clean:

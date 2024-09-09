@@ -23,5 +23,9 @@ clean:
 run:
 	go run $(MAIN_FILE)
 
+deploy-auth: build-api
+	scp $(BUILD_PATH)/$(PROJECT_NAME) skrao@auth.skrao.net:~/Dev/apis/authsvc/
+	@rm -rf $(BUILD_PATH)
+
 lint:
 	$(HOME)/go/bin/golangci-lint run

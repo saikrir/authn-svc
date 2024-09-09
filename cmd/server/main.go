@@ -30,7 +30,6 @@ func Run() error {
 	log.Println("start server on ", AuthPort)
 
 	return server.Serve()
-
 }
 
 func main() {
